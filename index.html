@@ -1,350 +1,597 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GruposMadrid.com</title>
+    <title>GruposMadrid.com · 2004 – 2023</title>
+    <meta name="description" content="GruposMadrid.com, 2004 – 2023. Gracias.">
+    <meta name="theme-color" content="#dfe7ec">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://gruposmadrid.com/">
+    <meta property="og:title" content="GruposMadrid.com · 2004 – 2023">
+    <meta property="og:description" content="Gracias.">
+    <meta property="og:image" content="https://gruposmadrid.com/images/gruposmadrid-logo.png">
+    <meta name="twitter:card" content="summary">
+
+    <link rel="icon" href="favicon.ico" sizes="any">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="preload" href="fonts/anton-latin.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="fonts/oswald-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+
+    <style>
+        @font-face {
+            font-family: "Anton";
+            font-style: normal;
+            font-weight: 400;
+            font-display: swap;
+            src: url("fonts/anton-latin.woff2") format("woff2");
+        }
+        @font-face {
+            font-family: "Oswald";
+            font-style: normal;
+            font-weight: 300 700;
+            font-display: swap;
+            src: url("fonts/oswald-latin-var.woff2") format("woff2");
+        }
+
+        :root {
+            --paper: #dfe7ec;      /* cool blue-grey newsprint */
+            --ink: #0f1418;
+            --ink-soft: #33404a;
+            --accent: #0099dc;      /* the blue of the old GM favicon */
+            --accent-ink: #00699a;  /* darker shade of it, readable as text on paper */
+            --black: #000; /* matches the footer artwork's ink exactly */
+            --display: "Anton", "Impact", "Haettenschweiler", "Arial Narrow Bold", sans-serif;
+            --condensed: "Oswald", "Arial Narrow", "Roboto Condensed", sans-serif;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; }
+
+        html {
+            -webkit-text-size-adjust: 100%;
+            text-size-adjust: 100%;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-color: var(--paper);
+            /* Photocopy grain + soft cool vignette, like a flyer on the wall */
+            background-image:
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .14 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
+                radial-gradient(ellipse at 50% 0%, transparent 55%, rgba(0, 45, 75, .10) 100%);
+            background-attachment: scroll, fixed;
+            color: var(--ink);
+            font-family: var(--condensed);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        ::selection {
+            background: var(--accent);
+            color: var(--ink);
+        }
+
+        .page {
+            flex: 1 0 auto;
+            width: 100%;
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: clamp(32px, 6vw, 72px) 16px 0;
+        }
+
+        /* ---------- Hero ---------- */
+
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .logo {
+            margin: 0;
+            line-height: 0;
+        }
+
+        .logo img {
+            display: block;
+            width: clamp(220px, 38vw, 340px);
+            height: auto;
+        }
+
+        .years {
+            display: flex;
+            align-items: center;
+            gap: 0.9em;
+            width: min(100%, 460px);
+            margin: clamp(20px, 3vw, 32px) 0 0;
+            font-family: var(--condensed);
+            font-weight: 500;
+            font-size: clamp(1rem, 0.9rem + 0.5vw, 1.25rem);
+            letter-spacing: 0.32em;
+            /* letter-spacing adds trailing space; compensate so it stays centred */
+            text-indent: 0.32em;
+            color: var(--ink-soft);
+            font-variant-numeric: lining-nums tabular-nums;
+        }
+
+        .years::before,
+        .years::after {
+            content: "";
+            flex: 1;
+            height: 2px;
+            background: currentColor;
+            opacity: 0.55;
+        }
+
+        .thanks {
+            margin: 0.08em 0 0;
+            font-family: var(--display);
+            font-weight: 400;
+            font-size: clamp(4.5rem, 25vw, 12.5rem);
+            line-height: 0.95;
+            letter-spacing: 0.01em;
+            color: var(--ink);
+            /* Slightly off-register blue pass, like a two-colour screen print */
+            text-shadow: 0.035em 0.03em 0 var(--accent);
+        }
+
+        /* ---------- Lineup ---------- */
+
+        .lineup {
+            margin-top: clamp(32px, 5vw, 56px);
+            padding-top: clamp(28px, 4vw, 44px);
+            border-top: 3px solid var(--ink);
+            position: relative;
+        }
+
+        .lineup::before {
+            /* thin second rule: classic poster double line */
+            content: "";
+            position: absolute;
+            top: 5px;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: var(--ink);
+        }
+
+        .names {
+            list-style: none;
+            margin: 0 auto;
+            padding: 0;
+            max-width: 1000px;
+            text-align: center;
+            font-family: var(--condensed);
+            font-weight: 400;
+            font-size: clamp(1.0625rem, 0.95rem + 0.55vw, 1.4rem);
+            line-height: 1.9;
+            letter-spacing: 0.025em;
+            /* widens only the gaps *between* names (reset inside each name) */
+            word-spacing: 0.35em;
+            text-transform: uppercase;
+            color: var(--ink);
+        }
+
+        .names li {
+            display: inline;
+            white-space: nowrap;
+            word-spacing: normal;
+        }
+
+        /* Separator trails each name so lines break after it, never before */
+        .names li::after {
+            content: "/";
+            content: "/" / "";
+            margin-left: 0.5em;
+            color: var(--accent);
+            font-weight: 300;
+        }
+
+        .names li:nth-last-child(-n+2)::after {
+            content: none;
+        }
+
+        .names li:nth-child(3n+2) { color: var(--ink-soft); }
+
+        .names li:hover {
+            color: var(--accent-ink);
+        }
+
+        /* ---------- Footer ---------- */
+
+        .site-footer {
+            margin-top: clamp(24px, 4vw, 48px);
+        }
+
+        /* Old-site artwork: speakers, cassette and cables rising out of the ink.
+           Shown whole at every width; the black band starts right where it ends. */
+        .site-footer__art {
+            width: 100%;
+            aspect-ratio: 1760 / 477;
+            background: url("images/bg-site-black.png") center bottom / 100% 100% no-repeat;
+        }
+
+        .site-footer__band {
+            margin: 0;
+            padding: clamp(12px, 2vw, 24px) 16px clamp(36px, 5vw, 56px);
+            background: var(--black);
+            text-align: center;
+            font-family: var(--condensed);
+            font-size: 0.8125rem;
+            font-weight: 500;
+            letter-spacing: 0.3em;
+            text-indent: 0.3em;
+            text-transform: uppercase;
+            color: rgba(223, 231, 236, 0.62);
+        }
+
+        .site-footer__band::before {
+            content: "";
+            display: block;
+            width: 48px;
+            height: 3px;
+            margin: 0 auto 18px;
+            background: var(--accent);
+        }
+
+        /* ---------- Motion (only if the visitor is fine with it) ---------- */
+
+        @media (prefers-reduced-motion: no-preference) {
+            @keyframes rise {
+                from { opacity: 0; transform: translateY(14px); }
+                to   { opacity: 1; transform: none; }
+            }
+            @keyframes register {
+                from { text-shadow: 0.11em 0.08em 0 var(--accent); opacity: 0; }
+                40%  { opacity: 1; }
+                to   { text-shadow: 0.035em 0.03em 0 var(--accent); opacity: 1; }
+            }
+            .logo    { animation: rise 0.7s cubic-bezier(.2, .7, .2, 1) both; }
+            .years   { animation: rise 0.7s 0.15s cubic-bezier(.2, .7, .2, 1) both; }
+            .thanks  { animation: register 0.9s 0.3s cubic-bezier(.2, .7, .2, 1) both; }
+            .lineup  { animation: rise 0.8s 0.55s cubic-bezier(.2, .7, .2, 1) both; }
+            .names li { transition: color 0.15s ease; }
+        }
+
+        @media print {
+            body { background: #fff; }
+            .thanks { text-shadow: none; }
+            .site-footer { display: none; }
+        }
+    </style>
 </head>
-<style>
-    body {
-        font-family: Arial, Helvetica, sans-serif;
-        background-color: rgb(48, 48, 48);
-        color:white;
-    }
-    h1, p {
-        text-align: center;
-        margin-bottom: 0;
-    }
-    img.logo {
-        max-width: 250px;
-    }
-    .big {
-        font-size: 30px;
-    }
-    .small {
-        font-size: 11px;
-        font-style: italic;
-    }
-    p {
-        max-width: 1000px;
-        margin: 5px auto;
-    }
-</style>
 <body>
 
-    <div>
-        <h1><img class="logo" src="images/gruposmadrid-logo.png" alt="GruposMadrid"></h1>
-        <p>2004 - 2023</p>
-        <p class="big">GRACIAS</p>
-        <p class="small">
-            NBS,
-            Dawn to Dusk,
-            Malyssia,
-            oni,
-            S4dak0,
-            GeduR,
-            june mack,
-            mathilda,
-            tao te kin,
-            Confunksion,
-            petralgp,
-            JazzDruMadrid,
-            against the odds,
-            klaustrofovia,
-            chema calero,
-            the soulfamidas band,
-            insomnio,
-            vita imana,
-            lyvon,
-            Madoka,
-            Hellkinkis,
-            PIKA STUDIOS,
-            deadman,
-            garaje jack,
-            SwAmP,
-            LA BROMA NEGRA,
-            etopic,
-            Today ends dying,
-            yakuzas,
-            La Jara,
-            1984,
-            doctor sapo,
-            BAJO KLERO,
-            damnit,
-            Suicidio Project,
-            emet,
-            61 GARAGE,
-            steeldragons,
-            Criteria,
-            loslunesalrock,
-            the forty nighters,
-            niños velcro,
-            Surko,
-            PataMala,
-            musikas,
-            spiritual sin,
-            sit,
-            CirculoPolar,
-            Obsolete Rockers,
-            overdown,
-            InterTour,
-            Violet June,
-            CrownLess,
-            andrewkort,
-            the monkey company,
-            DOCTOR ROMEO,
-            kireina,
-            sagnarock,
-            sonus delay,
-            kovalski,
-            vitalogy,
-            Daniel Caramés,
-            neizan,
-            rubenkuh,
-            la banda del conductor del 33,
-            ametric,
-            sannon,
-            a circus day,
-            supermano,
-            debutant disco,
-            Señor Marron,
-            Maletas en la Puerta,
-            corvorum,
-            masthemaniac,
-            la mano tonta de cervantes,
-            ELVISRYTHMICS,
-            Off Arteria,
-            drsapo,
-            Musica en Vivo,
-            cadufero,
-            Rachel,
-            the rare sound machine,
-            MOAIS,
-            -Tejón-,
-            only eagles,
-            manuelerman,
-            INCENDIO,
-            bizarre mind,
-            populacho,
-            contrabanda,
-            Discolo,
-            blue child,
-            La Suite F,
-            hollow,
-            caleiah,
-            nobody forces,
-            quijotes electricos,
-            rockambado,
-            adiccion,
-            lostar,
-            father golem,
-            mugga,
-            sobry,
-            enmente,
-            hechizo,
-            13latas,
-            Blacklist,
-            moraus,
-            EL GRAN BONOBO,
-            Zoomusic,
-            Yaffa,
-            ENSAYOS JENDRIX,
-            sinestress,
-            rubenroman2000,
-            doctor persona,
-            ares,
-            Claxxon,
-            dr goodroll,
-            git,
-            romeo,
-            No me Jodas,
-            ONE LAST WORD,
-            dark mind,
-            angel pulido,
-            eliah domus,
-            lora,
-            lila herranz,
-            MANSION MEIGA,
-            aeroplastica,
-            before the blue,
-            enemy of myself,
-            freakmind,
-            HYBRID,
-            alberto,
-            actitud,
-            ECHO EXPRESS,
-            el sueno de icaro,
-            laurabruja,
-            canalla records,
-            Theperrosband,
-            starvingconciertos,
-            Backstage Versiones,
-            damadfly,
-            eclipse,
-            reylouie,
-            slowhand,
-            spinteku,
-            nacho salgado,
-            blind mans buff,
-            ENDLESS DESIRE,
-            twin hands,
-            DEATHOMEN,
-            Nada_de_Nadie,
-            RooM,
-            black hat,
-            Scarecrow,
-            antodones,
-            liquid sun,
-            Taser,
-            neiz,
-            tp66,
-            la custom,
-            NubaRocK,
-            Frozen Minds,
-            mcfire,
-            Rodri Rock,
-            javirockpunkindie1,
-            disco personal,
-            iberica,
-            the shadows staff,
-            luchooo93,
-            as my world burns,
-            Overfall,
-            PieceOfChange,
-            maxmiminko,
-            sweetq,
-            PreñaViudas,
-            rey louie bar band,
-            Iraka,
-            funkomatic,
-            FUNGUS,
-            baphomet,
-            ryan,
-            the crazy mandingos,
-            salaanubis,
-            Plastic Market,
-            evencore,
-            greenwich,
-            Bonustrack,
-            EVOHE,
-            sinloco,
-            surge,
-            charly4344,
-            Drummerfucker,
-            summit k15,
-            rainknight,
-            Hollywood Twist,
-            blume,
-            pequeñabety,
-            cool63,
-            cuelebre,
-            the glass circus,
-            docrock,
-            paranaloopers,
-            el nino del sako,
-            molim,
-            padrecronos,
-            el lago,
-            ofigtalentos,
-            JakeMate,
-            Max Miminko,
-            Psicotropia,
-            heroe_leyenda,
-            noxtromo,
-            Dani10br,
-            metalblood,
-            jesykons,
-            picassound,
-            noiah,
-            eridem,
-            elfomos,
-            Xavito96,
-            California Studios,
-            Albert G Daniels,
-            Monkey Do,
-            majara,
-            the outsiders,
-            pablops91,
-            pearlanas,
-            abu simbel,
-            HIPSTERIA ROCK,
-            PERT,
-            kordia,
-            glazecrab,
-            jose,
-            andrewpoc,
-            Nastyrave,
-            francisco,
-            ksavie,
-            Mabel Colectivo La Latina,
-            candelaria,
-            Defectos,
-            Labra Legüe,
-            dani_in_the_sixties,
-            alcf10,
-            urban cookies,
-            mseizduque,
-            dulce adiccion,
-            The Blessing Dogs,
-            Mario Rivera,
-            javmon,
-            MIOCLONO,
-            Popautor N muda,
-            miremonos.music,
-            a destiempo,
-            Plancton,
-            the band apart,
-            AlexMAD,
-            SPEED LIMIT CRUISER,
-            miguel domingo cuarteto,
-            andresbl66d,
-            DEXTRAPERLO,
-            heldon,
-            La Chacha de Nadie,
-            escaramuza,
-            quatermoc,
-            doctor wattson,
-            salaolvido15,
-            La Rendición de Brenda,
-            buddha vermell,
-            controldegravedad,
-            Ars Creavi,
-            gatonieve,
-            wereworld,
-            angel dela muerte,
-            Tinnitia,
-            emeterians,
-            pablo,
-            Alvarzeus,
-            erribera,
-            Los fito y tu,
-            mrblaky,
-            gauntlet,
-            Bultur,
-            the oblong box,
-            modelo t,
-            BANGLADESH,
-            soydericart,
-            Ton y Son,
-            lorena,
-            M.A.L,
-            amadian,
-            fostioner,
-            CENSURADOS,
-            randomusername,
-            Averia,
-            toxic generation,
-            reciclajeconcoraje,
-            PabMenVi,
-            the jokers,
-            everlyn,
-            overcaust,
-            Quiquebs,
-            Hidra,
-            SUPERMORSA
-            ...
-        </p>
-    </div>  
+    <main class="page">
+        <header class="hero">
+            <h1 class="logo">
+                <img src="images/gruposmadrid-logo-720.png" width="720" height="720" alt="GruposMadrid.com">
+            </h1>
+            <p class="years"><span>2004 – 2023</span></p>
+            <h2 class="thanks" id="gracias">GRACIAS</h2>
+        </header>
+
+        <section class="lineup" aria-labelledby="gracias">
+            <ul class="names">
+                <li>NBS</li>
+                <li>Dawn to Dusk</li>
+                <li>Malyssia</li>
+                <li>oni</li>
+                <li>S4dak0</li>
+                <li>GeduR</li>
+                <li>june mack</li>
+                <li>mathilda</li>
+                <li>tao te kin</li>
+                <li>Confunksion</li>
+                <li>petralgp</li>
+                <li>JazzDruMadrid</li>
+                <li>against the odds</li>
+                <li>klaustrofovia</li>
+                <li>chema calero</li>
+                <li>the soulfamidas band</li>
+                <li>insomnio</li>
+                <li>vita imana</li>
+                <li>lyvon</li>
+                <li>Madoka</li>
+                <li>Hellkinkis</li>
+                <li>PIKA STUDIOS</li>
+                <li>deadman</li>
+                <li>garaje jack</li>
+                <li>SwAmP</li>
+                <li>LA BROMA NEGRA</li>
+                <li>etopic</li>
+                <li>Today ends dying</li>
+                <li>yakuzas</li>
+                <li>La Jara</li>
+                <li>1984</li>
+                <li>doctor sapo</li>
+                <li>BAJO KLERO</li>
+                <li>damnit</li>
+                <li>Suicidio Project</li>
+                <li>emet</li>
+                <li>61 GARAGE</li>
+                <li>steeldragons</li>
+                <li>Criteria</li>
+                <li>loslunesalrock</li>
+                <li>the forty nighters</li>
+                <li>niños velcro</li>
+                <li>Surko</li>
+                <li>PataMala</li>
+                <li>musikas</li>
+                <li>spiritual sin</li>
+                <li>sit</li>
+                <li>CirculoPolar</li>
+                <li>Obsolete Rockers</li>
+                <li>overdown</li>
+                <li>InterTour</li>
+                <li>Violet June</li>
+                <li>CrownLess</li>
+                <li>andrewkort</li>
+                <li>the monkey company</li>
+                <li>DOCTOR ROMEO</li>
+                <li>kireina</li>
+                <li>sagnarock</li>
+                <li>sonus delay</li>
+                <li>kovalski</li>
+                <li>vitalogy</li>
+                <li>Daniel Caramés</li>
+                <li>neizan</li>
+                <li>rubenkuh</li>
+                <li>la banda del conductor del 33</li>
+                <li>ametric</li>
+                <li>sannon</li>
+                <li>a circus day</li>
+                <li>supermano</li>
+                <li>debutant disco</li>
+                <li>Señor Marron</li>
+                <li>Maletas en la Puerta</li>
+                <li>corvorum</li>
+                <li>masthemaniac</li>
+                <li>la mano tonta de cervantes</li>
+                <li>ELVISRYTHMICS</li>
+                <li>Off Arteria</li>
+                <li>drsapo</li>
+                <li>Musica en Vivo</li>
+                <li>cadufero</li>
+                <li>Rachel</li>
+                <li>the rare sound machine</li>
+                <li>MOAIS</li>
+                <li>-Tejón-</li>
+                <li>only eagles</li>
+                <li>manuelerman</li>
+                <li>INCENDIO</li>
+                <li>bizarre mind</li>
+                <li>populacho</li>
+                <li>contrabanda</li>
+                <li>Discolo</li>
+                <li>blue child</li>
+                <li>La Suite F</li>
+                <li>hollow</li>
+                <li>caleiah</li>
+                <li>nobody forces</li>
+                <li>quijotes electricos</li>
+                <li>rockambado</li>
+                <li>adiccion</li>
+                <li>lostar</li>
+                <li>father golem</li>
+                <li>mugga</li>
+                <li>sobry</li>
+                <li>enmente</li>
+                <li>hechizo</li>
+                <li>13latas</li>
+                <li>Blacklist</li>
+                <li>moraus</li>
+                <li>EL GRAN BONOBO</li>
+                <li>Zoomusic</li>
+                <li>Yaffa</li>
+                <li>ENSAYOS JENDRIX</li>
+                <li>sinestress</li>
+                <li>rubenroman2000</li>
+                <li>doctor persona</li>
+                <li>ares</li>
+                <li>Claxxon</li>
+                <li>dr goodroll</li>
+                <li>git</li>
+                <li>romeo</li>
+                <li>No me Jodas</li>
+                <li>ONE LAST WORD</li>
+                <li>dark mind</li>
+                <li>angel pulido</li>
+                <li>eliah domus</li>
+                <li>lora</li>
+                <li>lila herranz</li>
+                <li>MANSION MEIGA</li>
+                <li>aeroplastica</li>
+                <li>before the blue</li>
+                <li>enemy of myself</li>
+                <li>freakmind</li>
+                <li>HYBRID</li>
+                <li>alberto</li>
+                <li>actitud</li>
+                <li>ECHO EXPRESS</li>
+                <li>el sueno de icaro</li>
+                <li>laurabruja</li>
+                <li>canalla records</li>
+                <li>Theperrosband</li>
+                <li>starvingconciertos</li>
+                <li>Backstage Versiones</li>
+                <li>damadfly</li>
+                <li>eclipse</li>
+                <li>reylouie</li>
+                <li>slowhand</li>
+                <li>spinteku</li>
+                <li>nacho salgado</li>
+                <li>blind mans buff</li>
+                <li>ENDLESS DESIRE</li>
+                <li>twin hands</li>
+                <li>DEATHOMEN</li>
+                <li>Nada_de_Nadie</li>
+                <li>RooM</li>
+                <li>black hat</li>
+                <li>Scarecrow</li>
+                <li>antodones</li>
+                <li>liquid sun</li>
+                <li>Taser</li>
+                <li>neiz</li>
+                <li>tp66</li>
+                <li>la custom</li>
+                <li>NubaRocK</li>
+                <li>Frozen Minds</li>
+                <li>mcfire</li>
+                <li>Rodri Rock</li>
+                <li>javirockpunkindie1</li>
+                <li>disco personal</li>
+                <li>iberica</li>
+                <li>the shadows staff</li>
+                <li>luchooo93</li>
+                <li>as my world burns</li>
+                <li>Overfall</li>
+                <li>PieceOfChange</li>
+                <li>maxmiminko</li>
+                <li>sweetq</li>
+                <li>PreñaViudas</li>
+                <li>rey louie bar band</li>
+                <li>Iraka</li>
+                <li>funkomatic</li>
+                <li>FUNGUS</li>
+                <li>baphomet</li>
+                <li>ryan</li>
+                <li>the crazy mandingos</li>
+                <li>salaanubis</li>
+                <li>Plastic Market</li>
+                <li>evencore</li>
+                <li>greenwich</li>
+                <li>Bonustrack</li>
+                <li>EVOHE</li>
+                <li>sinloco</li>
+                <li>surge</li>
+                <li>charly4344</li>
+                <li>Drummerfucker</li>
+                <li>summit k15</li>
+                <li>rainknight</li>
+                <li>Hollywood Twist</li>
+                <li>blume</li>
+                <li>pequeñabety</li>
+                <li>cool63</li>
+                <li>cuelebre</li>
+                <li>the glass circus</li>
+                <li>docrock</li>
+                <li>paranaloopers</li>
+                <li>el nino del sako</li>
+                <li>molim</li>
+                <li>padrecronos</li>
+                <li>el lago</li>
+                <li>ofigtalentos</li>
+                <li>JakeMate</li>
+                <li>Max Miminko</li>
+                <li>Psicotropia</li>
+                <li>heroe_leyenda</li>
+                <li>noxtromo</li>
+                <li>Dani10br</li>
+                <li>metalblood</li>
+                <li>jesykons</li>
+                <li>picassound</li>
+                <li>noiah</li>
+                <li>eridem</li>
+                <li>elfomos</li>
+                <li>Xavito96</li>
+                <li>California Studios</li>
+                <li>Albert G Daniels</li>
+                <li>Monkey Do</li>
+                <li>majara</li>
+                <li>the outsiders</li>
+                <li>pablops91</li>
+                <li>pearlanas</li>
+                <li>abu simbel</li>
+                <li>HIPSTERIA ROCK</li>
+                <li>PERT</li>
+                <li>kordia</li>
+                <li>glazecrab</li>
+                <li>jose</li>
+                <li>andrewpoc</li>
+                <li>Nastyrave</li>
+                <li>francisco</li>
+                <li>ksavie</li>
+                <li>Mabel Colectivo La Latina</li>
+                <li>candelaria</li>
+                <li>Defectos</li>
+                <li>Labra Legüe</li>
+                <li>dani_in_the_sixties</li>
+                <li>alcf10</li>
+                <li>urban cookies</li>
+                <li>mseizduque</li>
+                <li>dulce adiccion</li>
+                <li>The Blessing Dogs</li>
+                <li>Mario Rivera</li>
+                <li>javmon</li>
+                <li>MIOCLONO</li>
+                <li>Popautor N muda</li>
+                <li>miremonos.music</li>
+                <li>a destiempo</li>
+                <li>Plancton</li>
+                <li>the band apart</li>
+                <li>AlexMAD</li>
+                <li>SPEED LIMIT CRUISER</li>
+                <li>miguel domingo cuarteto</li>
+                <li>andresbl66d</li>
+                <li>DEXTRAPERLO</li>
+                <li>heldon</li>
+                <li>La Chacha de Nadie</li>
+                <li>escaramuza</li>
+                <li>quatermoc</li>
+                <li>doctor wattson</li>
+                <li>salaolvido15</li>
+                <li>La Rendición de Brenda</li>
+                <li>buddha vermell</li>
+                <li>controldegravedad</li>
+                <li>Ars Creavi</li>
+                <li>gatonieve</li>
+                <li>wereworld</li>
+                <li>angel dela muerte</li>
+                <li>Tinnitia</li>
+                <li>emeterians</li>
+                <li>pablo</li>
+                <li>Alvarzeus</li>
+                <li>erribera</li>
+                <li>Los fito y tu</li>
+                <li>mrblaky</li>
+                <li>gauntlet</li>
+                <li>Bultur</li>
+                <li>the oblong box</li>
+                <li>modelo t</li>
+                <li>BANGLADESH</li>
+                <li>soydericart</li>
+                <li>Ton y Son</li>
+                <li>lorena</li>
+                <li>M.A.L</li>
+                <li>amadian</li>
+                <li>fostioner</li>
+                <li>CENSURADOS</li>
+                <li>randomusername</li>
+                <li>Averia</li>
+                <li>toxic generation</li>
+                <li>reciclajeconcoraje</li>
+                <li>PabMenVi</li>
+                <li>the jokers</li>
+                <li>everlyn</li>
+                <li>overcaust</li>
+                <li>Quiquebs</li>
+                <li>Hidra</li>
+                <li>SUPERMORSA</li>
+                <li class="etc">...</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="site-footer__art" aria-hidden="true"></div>
+        <p class="site-footer__band">GruposMadrid.com</p>
+    </footer>
+
 </body>
 </html>
